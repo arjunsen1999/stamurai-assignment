@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import "./AddButton.css";
+import todoStore from "@/app/features/ToDoStore";
+import { observer } from "mobx-react-lite";
 
-export default function AddButton() {
+function AddButton() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -85,16 +87,45 @@ export default function AddButton() {
                 type="text"
                 className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Title..."
+                value={todoStore.todo.name}
+                onChange={(event) => (todoStore.todo.name = event.target.value)}
               />
               <p className="text-[22px] mt-7">Description</p>
               <input
                 type="text"
                 className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Description"
+                value={todoStore.todo.description}
+                onChange={(event) =>
+                  (todoStore.todo.description = event.target.value)
+                }
               />
+              <p className="text-[22px] mt-7">Status</p>
+              <select
+                name=""
+                id=""
+                value={todoStore.todo.status}
+                onChange={(event) =>
+                  (todoStore.todo.status = event.target.value)
+                }
+                className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="" selected disbled>
+                  --Select Status--
+                </option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+              {/* <input
+                type="text"
+                className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter Description"
+                value={todoStore.todo.description}
+                onChange={(event) => (todoStore.todo.description = event.target.value)} */}
+              {/* /> */}
             </div>
 
-            <div className="flex justify-end p-5 mt-[22rem]">
+            <div className="flex justify-start p-6 mt-[0px]">
               <button
                 type="button"
                 className="px-4 py-2 mr-2 bg-gray-300 rounded"
@@ -106,6 +137,7 @@ export default function AddButton() {
                 type="button"
                 className="px-4 py-2 bg-blue-500 text-white rounded"
                 onClick={handleSave}
+                onClick={() => todoStore.addTodo()}
               >
                 Save
               </button>
@@ -116,3 +148,4 @@ export default function AddButton() {
     </>
   );
 }
+export default observer(AddButton);

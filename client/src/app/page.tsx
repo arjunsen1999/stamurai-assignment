@@ -1,11 +1,15 @@
+"use client";
+import { observer } from "mobx-react-lite";
 import AddButton from "./components/Add-Button/AddButton";
 import HeadingContainer from "./components/HeadingContainer";
 import ProjectDetailsCards from "./components/ProjectDetailsCards";
-import TaskDetailsCards from "./components/TasksDetailsCards";
+// import TaskDetailsCards from "./components/TasksDetailsCards";
 import ToDoLists from "./components/ToDoLists";
 import WelcomeConatiner from "./components/WelcomeConatiner";
+import todoStore, { TodoModelTypes } from "./features/ToDoStore";
 
-export default function Home() {
+
+ function Home() {
   return (
     <>
       <div className="w-full">
@@ -27,7 +31,7 @@ export default function Home() {
                       #
                     </th>
                     <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
-                      Name
+                      Title
                     </th>
                     <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
                       Description
@@ -44,16 +48,19 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody className="border border-teal-600 w-full [&>*:nth-child(even)]:bg-gray-100 [&>*:nth-child(odd)]:bg-gray-200">
-                  <ToDoLists />
-                  <ToDoLists />
-                  <ToDoLists />
-                  <ToDoLists />
+                  {
+                    todoStore.todoList.map((ele : TodoModelTypes, idx : number) =>{
+                      return <ToDoLists {...ele}/>
+                    })
+                  }
+                  
                 </tbody>
               </table>
             </div>
             <div className="grid grid-cols-1 gap-[20px]">
-              <ProjectDetailsCards />
-              <ProjectDetailsCards />
+              <ProjectDetailsCards title={"Total ToDo"} value={todoStore.totalTodo}/>
+              <ProjectDetailsCards title={"Total Progress"} value={todoStore.totalProgress}/>
+              <ProjectDetailsCards title={"Total Completed"} value={todoStore.totalComplete} />
             </div>
           </div>
         </div>
@@ -61,3 +68,5 @@ export default function Home() {
     </>
   );
 }
+
+export default observer(Home)

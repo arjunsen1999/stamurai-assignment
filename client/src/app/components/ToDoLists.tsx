@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import todoStore, { TodoModelTypes } from "../features/ToDoStore";
+import { observer } from "mobx-react-lite";
 
-export default function ToDoLists() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+function ToDoLists({ id, name, description, status }: TodoModelTypes) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   const handleButtonClick = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -20,10 +22,10 @@ export default function ToDoLists() {
   return (
     <>
       <tr>
-        <td className="text-left px-5 py-2">1.</td>
-        <td className="text-left px-5 py-2">Name</td>
-        <td className="text-left px-5 py-2">Description</td>
-        <td className="text-left px-5 py-2"> status</td>
+        <td className="text-left px-5 py-2">{id}</td>
+        <td className="text-left px-5 py-2">{name}</td>
+        <td className="text-left px-5 py-2">{description}</td>
+        <td className="text-left px-5 py-2"> {status}</td>
         <td className="text-left px-5 py-2">
           <button
             type="button"
@@ -37,6 +39,7 @@ export default function ToDoLists() {
           <button
             type="button"
             className="px-4 py-2 mr-2 bg-[#C30404] hover:bg-red-900 text-white rounded"
+            onClick={() => todoStore.deleteTodo(id)}
           >
             Delete
           </button>
@@ -81,16 +84,38 @@ export default function ToDoLists() {
                 type="text"
                 className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Title..."
+                value={todoStore.todo.name}
+                onChange={(event) => (todoStore.todo.name = event.target.value)}
               />
               <p className="text-[22px] mt-7">Description</p>
               <input
                 type="text"
                 className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter Description"
+                value={todoStore.todo.description}
+                onChange={(event) =>
+                  (todoStore.todo.description = event.target.value)
+                }
               />
+              <p className="text-[22px] mt-7">Status</p>
+              <select
+                name=""
+                id=""
+                value={todoStore.todo.status}
+                onChange={(event) =>
+                  (todoStore.todo.status = event.target.value)
+                }
+                className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="" selected disbled>
+                  --Select Status--
+                </option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
             </div>
 
-            <div className="flex justify-end p-5 mt-[18rem]">
+            <div className="flex justify-start p-6 mt-[0px]">
               <button
                 type="button"
                 className="px-4 py-2 mr-2 bg-gray-300 rounded"
@@ -102,6 +127,7 @@ export default function ToDoLists() {
                 type="button"
                 className="px-4 py-2 bg-blue-500 text-white rounded"
                 onClick={handleSave}
+                onClick={() => todoStore.updateTodo(id)}
               >
                 Save
               </button>
@@ -112,3 +138,5 @@ export default function ToDoLists() {
     </>
   );
 }
+
+export default observer(ToDoLists);

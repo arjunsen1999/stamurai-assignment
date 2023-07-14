@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SideBar from "./components/SideBar";
 import TopNavbar from "./components/TopNavbar";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Task Management System</title>
+      </head>
       <body className={inter.className}>
         <div className="w-full min-h-screen grid grid-cols-[280px,1fr]">
           <SideBar />
           <div className="">
             <TopNavbar />
+            <ToastContainer />
             {children}
           </div>
         </div>
