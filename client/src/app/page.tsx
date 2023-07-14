@@ -50,7 +50,7 @@ import todoStore, { TodoModelTypes } from "./features/ToDoStore";
                 <tbody className="border border-teal-600 w-full [&>*:nth-child(even)]:bg-gray-100 [&>*:nth-child(odd)]:bg-gray-200">
                   {
                     todoStore.todoList.map((ele : TodoModelTypes, idx : number) =>{
-                      return <ToDoLists {...ele}/>
+                      return <ToDoLists key={ele.id} {...ele}/>
                     })
                   }
                   
