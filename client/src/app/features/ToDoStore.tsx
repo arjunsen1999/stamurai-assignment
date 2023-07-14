@@ -10,7 +10,7 @@ export interface TodoModelTypes {
 }
 
 class TodoStrore {
-  todoList: TodoModelTypes[] = [];
+  todoList: TodoModelTypes[] = JSON.parse(localStorage.getItem("ToDo") || "[]");
   todo: TodoModelTypes = this.resetTodoData();
   totalTodo: number = this.todoList.length || 0;
   totalProgress: number = this.totalProgressData();
