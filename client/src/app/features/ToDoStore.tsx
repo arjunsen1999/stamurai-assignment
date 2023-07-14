@@ -1,4 +1,4 @@
-"use client";
+
 import { makeAutoObservable } from "mobx";
 import notification from "../Toast";
 
