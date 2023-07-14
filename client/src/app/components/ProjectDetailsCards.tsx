@@ -12,7 +12,7 @@ export default function ProjectDetailsCards() {
         <div>
           <BsStack fontSize={"60px"} color="gray" />
         </div>
-        <div className="border border-red-500"></div>
+        {/* <div className="border border-red-500"></div> */}
       </div>
     </>
   );

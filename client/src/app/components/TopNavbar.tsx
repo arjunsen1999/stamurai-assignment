@@ -4,7 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 export default function TopNavbar() {
   return (
     <>
-    <div className="border w-full flex items-center justify-start h-[60px] bg-white px-3 bg-[#257CFF] text-[white] py-4">
+    <div className="border w-full flex items-center justify-start h-[60px] px-3 bg-[#257CFF] text-[white] py-4">
     <div>
           <GiHamburgerMenu fontSize={"20px"} color="white" />
         </div>

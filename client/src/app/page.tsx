@@ -1,3 +1,4 @@
+import AddButton from "./components/Add-Button/AddButton";
 import HeadingContainer from "./components/HeadingContainer";
 import ProjectDetailsCards from "./components/ProjectDetailsCards";
 import TaskDetailsCards from "./components/TasksDetailsCards";
@@ -14,22 +15,37 @@ export default function Home() {
           {/* // Code here */}
           <WelcomeConatiner para={"Welcome Administrator !"} />
           <div className="border border-teal-500 w-full mb-5"></div>
+          <AddButton />
           {/* /// Table */}
           <div className="mt-2 grid grid-cols-[2fr,1fr] gap-[20px]">
-            <div className="border bg-white py-[20px] px-[15px]">
+            <div className="bg-white py-[20px] px-[15px] border-t-4 border-indigo-500">
               <h1 className="font-bold mb-5">Project Progress</h1>
               <table className="border border-red-500 w-full py-8">
                 <thead>
-                  <tr>
-                    <th className="text-left px-5 py-2">#</th>
-                    <th className="text-left px-5 py-2">Name</th>
-                    <th className="text-left px-5 py-2">Description</th>
-                    <th className="text-left px-5 py-2">Status</th>
-                    <th className="text-left px-5 py-2">Edit</th>
-                    <th className="text-left px-5 py-2">Delete</th>
+                  <tr className="border border-white">
+                    <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
+                      #
+                    </th>
+                    <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
+                      Name
+                    </th>
+                    <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
+                      Description
+                    </th>
+                    <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
+                      Status
+                    </th>
+                    <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
+                      Edit
+                    </th>
+                    <th className="text-left px-5 py-2 bg-[#257CFF] border border-white text-white">
+                      Delete
+                    </th>
                   </tr>
                 </thead>
-                <tbody className="border border-teal-600 w-full">
+                <tbody className="border border-teal-600 w-full [&>*:nth-child(even)]:bg-gray-100 [&>*:nth-child(odd)]:bg-gray-200">
+                  <ToDoLists />
+                  <ToDoLists />
                   <ToDoLists />
                   <ToDoLists />
                 </tbody>
@@ -37,7 +53,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 gap-[20px]">
               <ProjectDetailsCards />
-              <TaskDetailsCards />
+              <ProjectDetailsCards />
             </div>
           </div>
         </div>
