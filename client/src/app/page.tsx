@@ -8,8 +8,7 @@ import ToDoLists from "./components/ToDoLists";
 import WelcomeConatiner from "./components/WelcomeConatiner";
 import todoStore, { TodoModelTypes } from "./features/ToDoStore";
 
-
- function Home() {
+function Home() {
   return (
     <>
       <div className="w-full">
@@ -47,20 +46,28 @@ import todoStore, { TodoModelTypes } from "./features/ToDoStore";
                     </th>
                   </tr>
                 </thead>
-                <tbody className="border border-teal-600 w-full [&>*:nth-child(even)]:bg-gray-100 [&>*:nth-child(odd)]:bg-gray-200">
-                  {
-                    todoStore.todoList.map((ele : TodoModelTypes, idx : number) =>{
-                      return <ToDoLists key={ele.id} {...ele}/>
-                    })
-                  }
-                  
+                <tbody className="border border-teal-600 w-full [&>:nth-child(even)]:bg-gray-100 [&>:nth-child(odd)]:bg-gray-200">
+                  {todoStore.todoList?.map(
+                    (ele: TodoModelTypes, idx: number) => {
+                      return <ToDoLists key={ele.id} {...ele} />;
+                    }
+                  )}
                 </tbody>
               </table>
             </div>
             <div className="grid grid-cols-1 gap-[20px]">
-              <ProjectDetailsCards title={"Total ToDo"} value={todoStore.totalTodo}/>
-              <ProjectDetailsCards title={"Total Progress"} value={todoStore.totalProgress}/>
-              <ProjectDetailsCards title={"Total Completed"} value={todoStore.totalComplete} />
+              <ProjectDetailsCards
+                title={"Total ToDo"}
+                value={todoStore.totalTodo}
+              />
+              <ProjectDetailsCards
+                title={"Total Progress"}
+                value={todoStore.totalProgress}
+              />
+              <ProjectDetailsCards
+                title={"Total Completed"}
+                value={todoStore.totalComplete}
+              />
             </div>
           </div>
         </div>
@@ -69,4 +76,4 @@ import todoStore, { TodoModelTypes } from "./features/ToDoStore";
   );
 }
 
-export default observer(Home)
+export default observer(Home);

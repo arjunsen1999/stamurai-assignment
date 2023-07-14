@@ -1,4 +1,4 @@
-
+"use client";
 import { makeAutoObservable } from "mobx";
 import notification from "../Toast";
 
@@ -9,32 +9,38 @@ export interface TodoModelTypes {
   status: string;
 }
 
-const todoData : TodoModelTypes[] = JSON.parse(localStorage.getItem("ToDo") || "[]");
+if (typeof localStorage !== "undefined") {
+  // Access localStorage here
+
+  var todoData: TodoModelTypes[] = JSON.parse(
+    localStorage.getItem("ToDo") || "[]"
+  );
+}
 
 class TodoStrore {
   todoList: TodoModelTypes[] = todoData;
   todo: TodoModelTypes = this.resetTodoData();
-  totalTodo: number = this.todoList.length || 0;
+  totalTodo: number = this.todoList?.length || 0;
   totalProgress: number = this.totalProgressData();
   totalComplete: number = this.totalCompleteData();
 
   totalProgressData() {
-   let count = 0;
-   this.todoList.forEach((ele) =>{
-    if(ele.status == "In Progress"){
+    let count = 0;
+    this.todoList?.forEach((ele) => {
+      if (ele.status == "In Progress") {
         count++;
-    }
-   })
+      }
+    });
     return count;
   }
 
   totalCompleteData() {
     let count = 0;
-   this.todoList.forEach((ele) =>{
-    if(ele.status == "Completed"){
+    this.todoList?.forEach((ele) => {
+      if (ele.status == "Completed") {
         count++;
-    }
-   })
+      }
+    });
     return count;
   }
   resetTodoData() {
@@ -49,28 +55,28 @@ class TodoStrore {
     makeAutoObservable(this);
   }
   addTodo() {
-    this.todoList.push(this.todo);
+    this.todoList?.push(this.todo);
     this.updateLocalStorage();
-    this.totalTodo = this.todoList.length || 0;
-    notification("success", "ToDo Added Successfully!")
+    this.totalTodo = this.todoList?.length || 0;
+    notification("success", "ToDo Added Successfully!");
     this.totalProgress = this.totalProgressData();
     this.totalComplete = this.totalCompleteData();
     this.todo = this.resetTodoData();
   }
 
   deleteTodo(id: number) {
-    this.todoList = this.todoList.filter(
+    this.todoList = this.todoList?.filter(
       (todo: TodoModelTypes) => todo.id !== id
     );
-    this.totalTodo = this.todoList.length || 0;
+    this.totalTodo = this.todoList?.length || 0;
     this.totalProgress = this.totalProgressData();
     this.totalComplete = this.totalCompleteData();
     this.updateLocalStorage();
-    notification("success", "ToDo Deleted Successfully!")
+    notification("success", "ToDo Deleted Successfully!");
   }
 
   updateTodo(id: number) {
-    this.todoList.forEach((ele: TodoModelTypes) => {
+    this.todoList?.forEach((ele: TodoModelTypes) => {
       if (ele.id == id) {
         ele.name = this.todo.name !== "" ? this.todo.name : ele.name;
         ele.description =
@@ -85,7 +91,7 @@ class TodoStrore {
     this.totalComplete = this.totalCompleteData();
     this.updateLocalStorage();
     this.todo = this.resetTodoData();
-    notification("success", "ToDo Updated Successfully!")
+    notification("success", "ToDo Updated Successfully!");
   }
   private updateLocalStorage() {
     localStorage.setItem("ToDo", JSON.stringify(this.todoList));
